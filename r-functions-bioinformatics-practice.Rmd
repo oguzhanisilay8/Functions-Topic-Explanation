@@ -1,0 +1,277 @@
+---
+title: "R Functions Practice for Bioinformatics"
+author: "Oğuzhan Işılay"
+date: "2026-01-12"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    theme: readable
+---
+
+
+
+# Function Exercises
+
+In this section we will learn how to write functions by practicing.
+
+The exercises go from **easy to difficult**.
+
+---
+
+## Preparation (Test Data)
+
+First we create some example DNA sequences.
+
+```{r}
+dna1 <- c("A","G","C","T","G")
+dna2 <- c("A","T","A","T","A","T")
+dna3 <- c("G","G","C","C","G","G")
+dna4 <- c("N","N","A","T","G")
+dna5 <- c("A","G","X","T")   # unknown character test
+
+dna_list <- list(dna1, dna2, dna3, dna4)
+```
+
+# Level 1 — Easy (Understand how functions work)
+
+## Exercise 1: Square function
+
+### Task
+Write a function that takes a number and returns the square of that number.
+
+### Function name
+`square_value(x)`
+
+### Expected output
+`square_value(4)`  
+`16`
+
+### Hint
+You can calculate the result like this:
+
+`result <- x * x`
+
+Then return the result using:
+
+`return(result)`
+
+---
+
+## Exercise 2: DNA length
+
+### Task
+Write a function that takes a DNA sequence and returns the length of the sequence.
+
+### Function name
+`dna_length(dna)`
+
+### Expected output
+`dna_length(dna1)`  
+`5`
+
+### Hint
+You can use the function:
+
+`length()`
+
+---
+
+# Level 2 — Medium (for + if + counter)
+
+## Exercise 3: Count GC bases
+
+### Task
+Write a function that returns the total number of **G** and **C** bases in a DNA sequence.
+
+### Function name
+`gc_count(dna)`
+
+### Rules
+- use a **for loop**
+- use an **if condition**
+- use a **counter**
+
+### Expected output
+`gc_count(dna1)`  
+`3`
+
+### Hint
+Create a counter:
+
+`GC_total <- 0`
+
+Inside the loop check:
+
+`if (n == "G" || n == "C")`
+
+If true, increase the counter.
+
+---
+
+## Exercise 4: GC ratio
+
+### Task
+Calculate the GC ratio by dividing the GC count by the DNA length.
+
+### Function name
+`gc_ratio(dna)`
+
+### Expected output
+`gc_ratio(c("G","C","A","T"))`  
+`0.5`
+
+### Hint
+First calculate the GC count, then do:
+
+`GC_total / length(dna)`
+
+---
+
+# Level 3 — Medium / Advanced (Classification)
+
+## Exercise 5: GC classification
+
+### Task
+Write a function that classifies a DNA sequence based on GC ratio.
+
+### Function name
+`gc_status(dna)`
+
+### Rules
+- If GC ratio is greater than 0.5 → `"GC-rich"`
+- Otherwise → `"GC-poor"`
+
+### Expected output
+`gc_status(dna3)`  
+`"GC-rich"`
+
+### Hint
+First calculate GC ratio, then use `if/else`.
+
+---
+
+# Level 4 — Hard (Input checking)
+
+## Exercise 6: DNA validation
+
+### Task
+Write a function that checks the characters in a DNA sequence.
+
+### Function name
+`dna_check(dna)`
+
+### Rules
+If the DNA contains a character other than **A / T / G / C / N**, return:
+
+`"ERROR: Unknown base"`
+
+Otherwise return:
+
+`"OK"`
+
+### Expected output
+`dna_check(dna1)`  
+`"OK"`
+
+`dna_check(dna5)`  
+`"ERROR: Unknown base"`
+
+### Hint
+Inside the loop check:
+
+If
+
+`n != "A" && n != "T" && n != "G" && n != "C" && n != "N"`
+
+then return an error.
+
+---
+
+## Exercise 7: DNA quality check (QC logic)
+
+### Task
+Write a function that classifies DNA sequences using a quality control logic.
+
+### Function name
+`dna_quality(dna)`
+
+### Rules
+- If `"N"` exists → `"Uncertain DNA"`
+- If GC ratio ≥ 0.6 → `"High GC"`
+- Otherwise → `"Normal DNA"`
+
+### Expected output
+`dna_quality(dna4)`  
+`"Uncertain DNA"`
+
+### Hint
+First check if `"N"` exists.
+
+`N_exists <- FALSE`
+
+Then decide using the GC ratio.
+
+---
+
+## Exercise 8: List report
+
+### Task
+Write a function that takes a list of DNA sequences and prints a report for each DNA.
+
+### Function name
+`list_report(dna_list)`
+
+### Expected behavior
+For each DNA:
+
+1. run `dna_check`
+2. if there is no error run `dna_quality`
+3. if there is no `"N"` also print GC ratio
+
+### Example output
+`list_report(dna_list)`
+
+`1. DNA -> Normal DNA | GC: 0.6`  
+`2. DNA -> Normal DNA | GC: 0`  
+`3. DNA -> High GC    | GC: 1`  
+`4. DNA -> Uncertain DNA`
+
+### Hint
+You can use a counter:
+
+`idx <- 1`
+
+To combine text you can use:
+
+`paste()`
+
+---
+
+## Exercise 9: DNA summary function
+
+### Task
+Write one function that returns a short summary of a DNA sequence.
+
+### Function name
+`dna_summary(dna)`
+
+### Steps
+1. run `dna_check(dna)`
+2. if there is an error return the result immediately
+3. otherwise run `dna_quality(dna)`
+4. if the result is not `"Uncertain DNA"` also add GC ratio
+
+### Expected output
+`dna_summary(dna1)`
+
+`"OK | Normal DNA | GC=0.6"`
+
+### Hint
+To combine text you can use:
+
+`paste()`
+
+Example:
+
+`paste("OK |", status, "| GC=", ratio)`
