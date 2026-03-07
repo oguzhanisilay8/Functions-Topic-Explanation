@@ -41,6 +41,7 @@ File:
 
 ```
 Functions-Topic-Explanation.Rmd
+Functions-Topic-Explanation.pdf
 ```
 
 ---
@@ -63,6 +64,7 @@ File:
 
 ```
 r-functions-bioinformatics-practice.Rmd
+r-functions-bioinformatics-practice.pdf
 ```
 
 ---
@@ -81,6 +83,7 @@ File:
 
 ```
 r-functions-bioinformatics-solutions.Rmd
+r-functions-bioinformatics-solutions.pdf
 ```
 
 ---
